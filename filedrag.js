@@ -113,8 +113,8 @@ var Hash = function (file, callback) {
 			"<p id='"+ file.size +"'>File information: <strong>" + file.name +
 			"</strong> type: <strong>" + file.type +
 			"</strong> size: <strong>" + file.size +
-			"</strong> hash: <strong class='hash'>" +
-			"</strong> " +
+			"</strong> <span style='color:green;'>hash: <strong class='hash'>" +
+			"</strong></span> " +
             "</p>"
 		);
 
