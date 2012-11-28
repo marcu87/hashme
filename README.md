@@ -1,4 +1,4 @@
 hashme
 ======
 
-Get md5 hash of files using javascript and HTML5.
+Get md5 hash of files using javascript and HTML5
