@@ -48,16 +48,16 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 
 		// process all File objects
 		for (var i = 0, f; f = files[i]; i++) {
-			ParseFile(f);
+			ParseFile(f, i);
 		}
 
 	}
 
 	// output file information
-	function ParseFile(file) {
+	function ParseFile(file, id) {
 
 		Output(
-			"<p id='"+ file.size +"'>File information: <strong>" + file.name +
+			"<p id='"+ id +"'>File information: <strong>" + file.name +
 			"</strong> type: <strong>" + file.type +
 			"</strong> size: <strong>" + file.size +
 			"</strong> <span style='color:green;'>hash: <strong class='hash'>" +
@@ -66,7 +66,7 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 		);
 
         var hash = new hashMe(file, function OutputHash(msg) {
-                                $("#"+ file.size +" .hash").html(msg);
+                                $("#"+ id +" .hash").html(msg);
                           });
 
 	}
