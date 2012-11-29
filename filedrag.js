@@ -65,6 +65,7 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
             "</p>"
 		);
 
+        // added to process the hash of the files:
         var hash = new hashMe(file, function OutputHash(msg) {
                                 $("#"+ id +" .hash").html(msg);
                           });
