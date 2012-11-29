@@ -4,59 +4,6 @@ Featured on SitePoint.com
 Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 */
 
-var Hash = function (file, callback) {
-    
-    var thisObj = this,
-        _binStart = "",
-        _binEnd = "",
-        PrintFunction = "",
-        fileManager1 = new FileReader,
-        fileManager2 = new FileReader;
-        
-    this.setBinAndHash = function (startOrEnd, binData) {
-        
-        switch (startOrEnd) {
-            case 0:
-                this._binStart = binData;
-                break;
-            case 1:
-                this._binEnd = binData
-        }
-        
-        this._binStart && this._binEnd && this.md5sum(this._binStart, this._binEnd)
-    };
-    
-    this.md5sum = function (start, end) {
-        this._hash = rstr2hex(rstr_md5(start + end));
-        PrintFunction(this._hash);
-    };
-    
-    this.getHash = function() {
-        return this._hash;
-    };
-    
-    this.calculateHashOfFile = function (file) {
-      
-        fileManager1.onload = function (f) {
-            thisObj.setBinAndHash(0, f.target.result );
-        };
-        
-        fileManager2.onload = function (f) {
-            thisObj.setBinAndHash(1, f.target.result );
-        };
-      
-        var start = file.slice(0, 65536);
-        var end = file.slice(file.size - 65536, file.size);
-        
-        fileManager1.readAsBinaryString(start);
-        fileManager2.readAsBinaryString(end);
-    };
-    
-    this.calculateHashOfFile(file);
-    PrintFunction = callback;
-
-};
-
 (function() {
     
     var fileManager1 = new FileReader;
@@ -101,16 +48,16 @@ var Hash = function (file, callback) {
 
 		// process all File objects
 		for (var i = 0, f; f = files[i]; i++) {
-			ParseFile(f);
+			ParseFile(f, i);
 		}
 
 	}
 
 	// output file information
-	function ParseFile(file) {
+	function ParseFile(file, id) {
 
 		Output(
-			"<p id='"+ file.size +"'>File information: <strong>" + file.name +
+			"<p id='"+ id +"'>File information: <strong>" + file.name +
 			"</strong> type: <strong>" + file.type +
 			"</strong> size: <strong>" + file.size +
 			"</strong> <span style='color:green;'>hash: <strong class='hash'>" +
@@ -118,8 +65,9 @@ var Hash = function (file, callback) {
             "</p>"
 		);
 
-        var hash = new Hash(file, function OutputHash(msg) {
-                                $("#"+ file.size +" .hash").html(msg);
+        // added to process the hash of the files:
+        var hash = new hashMe(file, function OutputHash(msg) {
+                                $("#"+ id +" .hash").html(msg);
                           });
 
 	}
